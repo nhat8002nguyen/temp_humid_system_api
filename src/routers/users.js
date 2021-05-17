@@ -7,7 +7,7 @@ router.get("/users", verify, async (req, res) => {
     const users = await User.find({});
     if (!users) return res.status(404).send("No user found!");
 
-    res.send(users);
+    res.send({ users });
 });
 
 router.get("/users/:id", verify, async (req, res) => {
@@ -42,14 +42,14 @@ router.put("/users/:id", verify, async (req, res) => {
     }
 });
 
-router.delete("/users/:id", verify, async (req, res) => {
-    const userId = req.params.id;
+router.delete("/users", verify, async (req, res) => {
+    const userId = req.headers.id;
     const user = await User.findById(userId);
     if (!user) return res.status(400).send("Not found user!");
 
     try {
         const removedUser = await User.deleteOne({ _id: userId });
-        res.send({ id: user._id });
+        res.send(user);
     } catch (err) {
         res.status(400).send("Can not delete user!");
     }

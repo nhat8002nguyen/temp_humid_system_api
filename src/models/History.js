@@ -13,9 +13,9 @@ const historySchema = mongoose.Schema({
         type: Boolean,
         require: true,
     },
-    time: {
+    created_at: {
         type: String,
-        default: Date(Date.now()),
+        default: new Date().toISOString(),
     },
 });
 
