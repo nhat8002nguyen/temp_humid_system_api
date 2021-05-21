@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
 const thresholdSchema = mongoose.Schema({
-    humid: {
+    maxHumid: {
         type: String,
         require: true,
     },
-    temp: {
+    minHumid: {
+        type: String,
+        require: true,
+    },
+    minTemp: {
+        type: String,
+        require: true,
+    },
+    mintemp: {
         type: String,
         require: true,
     },

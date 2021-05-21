@@ -4,54 +4,68 @@ const bcrypt = require("bcryptjs");
 const verify = require("../verify");
 
 router.get("/users", verify, async (req, res) => {
-    const users = await User.find({});
-    if (!users) return res.status(404).send("No user found!");
+    if (req.headers.id) {
+        const userId = req.headers.id;
+        try {
+            const user = await User.findById(userId);
+            res.send(user);
+        } catch (err) {
+            res.status(400).send({ error: "User not found!" });
+        }
+    } else {
+        const users = await User.find({});
+        if (!users) return res.status(404).send({ error: "No user found!" });
 
-    res.send({ users });
-});
-
-router.get("/users/:id", verify, async (req, res) => {
-    const userId = req.params.id;
-    try {
-        const user = await User.findById(userId);
-        res.send(user);
-    } catch (err) {
-        res.status(400).send("User not found!");
+        const returnedUser = users.map((user) => ({
+            isAdmin: user.isAdmin,
+            created_at: user.created_at,
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+        }));
+        res.send({ users: returnedUser });
     }
 });
 
-router.put("/users/:id", verify, async (req, res) => {
-    const userId = req.params.id;
+router.put("/users", verify, async (req, res) => {
+    const userId = req.headers.id;
     const user = await User.findById(userId);
-    if (!user) return res.status(400).send("Not found user!");
+    if (!user) return res.status(400).send({ error: "Not found user!" });
 
     // hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    if (req.headers.passoword) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.headers.password, salt);
+        user.password = hashedPassword;
+    }
 
     // update user fields
-    user.name = req.body.name;
-    user.password = hashedPassword;
-    user.phone = req.body.phone;
+    if (req.headers.name) {
+        user.name = req.headers.name;
+    }
+    if (req.headers.phone) {
+        user.phone = req.headers.phone;
+    }
 
     try {
         const updatedUser = await user.save();
         res.send(updatedUser);
     } catch (err) {
-        res.status(400).send(err);
+        res.status(400).send({ error: err });
     }
 });
 
 router.delete("/users", verify, async (req, res) => {
     const userId = req.headers.id;
     const user = await User.findById(userId);
-    if (!user) return res.status(400).send("Not found user!");
+    if (!user) return res.status(400).send({ error: "Not found user!" });
 
     try {
         const removedUser = await User.deleteOne({ _id: userId });
         res.send(user);
     } catch (err) {
-        res.status(400).send("Can not delete user!");
+        res.status(400).send({ error: "Can not delete user!" });
     }
 });
 

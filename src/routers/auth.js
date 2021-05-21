@@ -11,32 +11,38 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
     // register validation
-    const { error } = registerValidation(req.body);
+    const registerData = {
+        name: req.headers.name,
+        email: req.headers.email,
+        password: req.headers.password,
+        phone: req.headers.phone,
+    };
+    const { error } = registerValidation(registerData);
     if (error) {
-        res.status(400).send(error.details[0].message);
+        res.status(400).send({ error: error.details[0].message });
         return false;
     }
     // email exist
-    const emailExist = await User.findOne({ email: req.body.email });
+    const emailExist = await User.findOne({ email: req.headers.email });
     if (emailExist) {
-        res.status(400).send("Email already exist");
+        res.status(400).send({ error: "Email already exist" });
         return false;
     }
     // check email exist
-    const phoneExist = await User.findOne({ phone: req.body.phone });
+    const phoneExist = await User.findOne({ phone: req.headers.phone });
     if (phoneExist) {
-        res.status(400).send("Phone already exist");
+        res.status(400).send({ error: "Phone already exist" });
         return false;
     }
 
     // hash password with bcrypt
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(req.headers.password, salt);
 
     const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
+        name: req.headers.name,
+        email: req.headers.email,
+        phone: req.headers.phone,
         password: hashedPassword,
     });
 
@@ -44,30 +50,34 @@ router.post("/register", async (req, res) => {
         await user.save();
         res.send(user);
     } catch (err) {
-        res.status(400).send("Can not register");
+        res.status(400).send({ error: "Can not register" });
     }
 });
 
 // Login route
 router.post("/login", async (req, res) => {
     // login validation
-    const { error } = await loginValidation(req.body);
+    const loginData = {
+        email: req.headers.email,
+        password: req.headers.password,
+    };
+    const { error } = await loginValidation(loginData);
     if (error) {
-        res.status(400).send(error.details[0].message);
+        res.status(400).send({ error: error.details[0].message });
         return false;
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: loginData.email });
     if (!user) {
-        res.status(400).send("Email is not exist !");
+        res.status(400).send({ error: "Email is not exist !" });
         return false;
     }
     const validPassword = await bcrypt.compare(
-        req.body.password,
+        loginData.password,
         user.password
     );
     if (!validPassword) {
-        res.status(400).send("Password is invalid!");
+        res.status(400).send({ error: "Password is invalid!" });
         return false;
     }
 
