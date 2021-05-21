@@ -34,18 +34,18 @@ router.put("/users", verify, async (req, res) => {
     if (!user) return res.status(400).send({ error: "Not found user!" });
 
     // hash password
-    if (req.params.passoword) {
+    if (req.query.passoword) {
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.params.password, salt);
+        const hashedPassword = await bcrypt.hash(req.query.password, salt);
         user.password = hashedPassword;
     }
 
     // update user fields
-    if (req.params.name) {
-        user.name = req.params.name;
+    if (req.query.name) {
+        user.name = req.query.name;
     }
-    if (req.params.phone) {
-        user.phone = req.params.phone;
+    if (req.query.phone) {
+        user.phone = req.query.phone;
     }
 
     try {
