@@ -9,11 +9,19 @@ const historySchema = mongoose.Schema({
         type: Number,
         require: true,
     },
+    averageTemp: {
+        type: Number,
+        require: true,
+    },
     minHumid: {
         type: Number,
         require: true,
     },
     maxHumid: {
+        type: Number,
+        require: true,
+    },
+    averageHumid: {
         type: Number,
         require: true,
     },
