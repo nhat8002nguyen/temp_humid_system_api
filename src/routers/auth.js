@@ -12,10 +12,10 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
     // register validation
     const registerData = {
-        name: req.headers.name,
-        email: req.headers.email,
-        password: req.headers.password,
-        phone: req.headers.phone,
+        name: req.params.name,
+        email: req.params.email,
+        password: req.params.password,
+        phone: req.params.phone,
     };
     const { error } = registerValidation(registerData);
     if (error) {
@@ -23,13 +23,13 @@ router.post("/register", async (req, res) => {
         return false;
     }
     // email exist
-    const emailExist = await User.findOne({ email: req.headers.email });
+    const emailExist = await User.findOne({ email: req.params.email });
     if (emailExist) {
         res.status(400).send({ error: "Email already exist" });
         return false;
     }
     // check email exist
-    const phoneExist = await User.findOne({ phone: req.headers.phone });
+    const phoneExist = await User.findOne({ phone: req.params.phone });
     if (phoneExist) {
         res.status(400).send({ error: "Phone already exist" });
         return false;
@@ -37,12 +37,12 @@ router.post("/register", async (req, res) => {
 
     // hash password with bcrypt
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.headers.password, salt);
+    const hashedPassword = await bcrypt.hash(req.params.password, salt);
 
     const user = new User({
-        name: req.headers.name,
-        email: req.headers.email,
-        phone: req.headers.phone,
+        name: req.params.name,
+        email: req.params.email,
+        phone: req.params.phone,
         password: hashedPassword,
     });
 
@@ -58,8 +58,8 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     // login validation
     const loginData = {
-        email: req.headers.email,
-        password: req.headers.password,
+        email: req.params.email,
+        password: req.params.password,
     };
     const { error } = await loginValidation(loginData);
     if (error) {
