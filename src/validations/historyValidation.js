@@ -2,10 +2,11 @@ const Joi = require("joi");
 
 const historyValidation = (data) => {
     const schema = Joi.object().keys({
-        temp: Joi.number().min(0).max(200),
-        humid: Joi.number().min(0).max(100),
+        minTemp: Joi.number().min(0).max(50),
+        maxTemp: Joi.number().min(0).max(50),
+        minHumid: Joi.number().min(20).max(90),
+        maxHumid: Joi.number().min(20).max(90),
         speaker: Joi.boolean(),
-        time: Joi.date(),
     });
 
     return schema.validate(data);

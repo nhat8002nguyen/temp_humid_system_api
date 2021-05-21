@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
 const historySchema = mongoose.Schema({
-    temp: {
+    minTemp: {
         type: Number,
         require: true,
     },
-    humid: {
+    maxTemp: {
+        type: Number,
+        require: true,
+    },
+    minHumid: {
+        type: Number,
+        require: true,
+    },
+    maxHumid: {
         type: Number,
         require: true,
     },

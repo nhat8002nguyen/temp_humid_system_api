@@ -12,10 +12,10 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
     // register validation
     const registerData = {
-        name: req.query.name,
-        email: req.query.email,
-        password: req.query.password,
-        phone: req.query.phone,
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        phone: req.body.phone,
     };
     const { error } = registerValidation(registerData);
     if (error) {
@@ -23,13 +23,13 @@ router.post("/register", async (req, res) => {
         return false;
     }
     // email exist
-    const emailExist = await User.findOne({ email: req.query.email });
+    const emailExist = await User.findOne({ email: req.body.email });
     if (emailExist) {
         res.status(400).send({ error: "Email already exist" });
         return false;
     }
     // check email exist
-    const phoneExist = await User.findOne({ phone: req.query.phone });
+    const phoneExist = await User.findOne({ phone: req.body.phone });
     if (phoneExist) {
         res.status(400).send({ error: "Phone already exist" });
         return false;
@@ -37,12 +37,12 @@ router.post("/register", async (req, res) => {
 
     // hash password with bcrypt
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.query.password, salt);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     const user = new User({
-        name: req.query.name,
-        email: req.query.email,
-        phone: req.query.phone,
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
         password: hashedPassword,
     });
 
@@ -58,8 +58,8 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     // login validation
     const loginData = {
-        email: req.query.email,
-        password: req.query.password,
+        email: req.body.email,
+        password: req.body.password,
     };
     const { error } = await loginValidation(loginData);
     if (error) {
@@ -67,13 +67,13 @@ router.post("/login", async (req, res) => {
         return false;
     }
 
-    const user = await User.findOne({ email: req.query.email });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
         res.status(400).send({ error: "Email is not exist !" });
         return false;
     }
     const validPassword = await bcrypt.compare(
-        req.query.password,
+        req.body.password,
         user.password
     );
     if (!validPassword) {
