@@ -2,8 +2,11 @@ const express = require("express");
 const User = require("../models/User");
 const registerValidation = require("../validations/registerValidation");
 const loginValidation = require("../validations/loginValidation");
+const changePassValidation = require("../validations/changePassValidation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const verify = require("../verify");
+const changeInfoValidation = require("../validations/changeInfoValidation");
 
 const router = express.Router();
 

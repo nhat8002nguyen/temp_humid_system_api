@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./src/routers/auth");
+const profileRoute = require("./src/routers/profile");
 const usersRoute = require("./src/routers/users");
 const historyRoute = require("./src/routers/histories");
 const thresholdRoute = require("./src/routers/threshold");
@@ -21,6 +22,7 @@ app.use(express.json({ limit: "10mb" }));
 
 // Route middlewares
 app.use("/api/user", authRoute);
+app.use("/api", profileRoute);
 app.use("/api", usersRoute);
 app.use("/api", historyRoute);
 app.use("/api", thresholdRoute);
