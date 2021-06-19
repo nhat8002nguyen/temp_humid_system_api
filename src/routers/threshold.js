@@ -14,11 +14,8 @@ router.get("/threshold", verify, async (req, res) => {
 
 router.post("/threshold", verify, async (req, res) => {
     const thresholdData = {
-        minTemp: req.headers.minTemp,
-        maxTemp: req.headers.maxTemp,
-        minHumid: req.headers.minHumid,
-        maxHumid: req.headers.maxHumid,
-        speakerFreq: req.headers.speakerFreq,
+        temp: req.body.temp,
+        humid: req.body.humid,
     };
     const { error } = thresholdValidation(thresholdData);
     if (error) return res.status(400).send(error.details[0].message);
@@ -37,12 +34,8 @@ router.put("/threshold", verify, async (req, res) => {
     const threshold = await Threshold.findById("threshold123");
     if (!threshold) return res.status(400).send("Something wrong !");
 
-    if (req.headers.minHumid) threshold.minhumid = req.headers.minHumid;
-    if (req.headers.maxHumid) threshold.maxhumid = req.headers.maxHumid;
-    if (req.headers.minTemp) threshold.minTemp = req.headers.minTemp;
-    if (req.headers.maxTemp) threshold.maxTemp = req.headers.maxTemp;
-    if (req.headers.speakerFreq)
-        threshold.speakerFreq = req.headers.speakerFreq;
+    if (req.body.temp) threshold.temp = req.body.temp;
+    if (req.body.humid) threshold.humid = req.body.humid;
 
     try {
         const savedThreshold = await threshold.save();
