@@ -2,11 +2,8 @@ const Joi = require("joi");
 
 const thresholdValidation = (data) => {
     const theme = Joi.object().keys({
-        minTemp: Joi.number().min(0).max(200),
-        maxTemp: Joi.number().min(0).max(200),
-        minHumid: Joi.number().min(0).max(100),
-        maxHumid: Joi.number().min(0).max(100),
-        speakerFreq: Joi.number().min(500).max(3000),
+        temp: Joi.number().min(0).max(100),
+        humid: Joi.number().min(0).max(100),
     });
 
     return theme.validate(data);
