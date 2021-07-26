@@ -6,13 +6,14 @@ const profileRoute = require("./src/routers/profile");
 const usersRoute = require("./src/routers/users");
 const historyRoute = require("./src/routers/histories");
 const thresholdRoute = require("./src/routers/threshold");
+const mqtt = require("./src/routers/mqtt");
 
 const app = express();
 dotenv.config();
 
 // Mongoose connection
 mongoose.connect(
-    "mongodb+srv://nhat:dadnProject@cluster0.e4tak.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    process.env.DB_CONNECT,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log("mongoose connected !")
 );
@@ -26,6 +27,7 @@ app.use("/api", profileRoute);
 app.use("/api", usersRoute);
 app.use("/api", historyRoute);
 app.use("/api", thresholdRoute);
+app.use("/api", mqtt);
 
 const port = process.env.PORT || 3000;
 
