@@ -1,0 +1,718 @@
+{
+	"info": {
+		"_postman_id": "d7e349d4-fc54-4e69-9aa9-afc36c8a04b0",
+		"name": "dadn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "get temp humid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/temp-humid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"temp-humid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set speaker",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"value\": \"{\\\"id\\\" : \\\"2\\\", \\\"name\\\" : \\\"SPEAKER\\\", \\\"data\\\": \\\"113\\\", \\\"unit\\\" : \\\"\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/speaker",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"speaker"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get range temp humid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/range-temp-humid?start_time=2021-07-26T11:24:41.944Z&end_time=2021-07-26T11:30:25.920Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"range-temp-humid"
+							],
+							"query": [
+								{
+									"key": "start_time",
+									"value": "2021-07-26T11:24:41.944Z"
+								},
+								{
+									"key": "end_time",
+									"value": "2021-07-26T11:30:25.920Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get current speaker",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/speaker",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"speaker"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "register ",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY2Yjg4Mjc5NGU1MWZlN2M1ZWVkNSIsImlhdCI6MTYyMTA2MDUzNX0.BybeRS0Ut8M1MU6BfA-ooL3KrZsZbr2t6SshsDtbJjM",
+						"type": "text"
+					},
+					{
+						"key": "name",
+						"value": "Nhat123",
+						"type": "text"
+					},
+					{
+						"key": "email",
+						"value": "pro@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "phone",
+						"value": "0932467889",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "qwerty",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Peter Parker\",\n    \"email\": \"peter123@gmail.com\",\n    \"password\": \"qwerty\",\n    \"phone\": \"0934567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/user/register",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				},
+				"description": "{\n    \"name\": \"Peter Parker\",\n    \"email\": \"peter123@gmail.com\",\n    \"password\": \"qwerty\",\n    \"phone\": \"0934567890\"\n}\n// name: string, min 6, max 255\n// email: email, min 6,\n// pasword: string, min 6, max 1024,\n// phone: string, min 9, max 11\n \n// Dữ liệu trả về là object của user được tạo trong database chứa _id"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"peter123@gmail.com\",\n    \"password\": \"qwerty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/user/login",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				},
+				"description": "{\n    \"email\": \"peter123@gmail.com\",\n    \"password\": \"qwerty\"\n}\n\n// email: email, min 6,\n// password: min6, max 1024\n\n// return long string is token of 'auth-token' header"
+			},
+			"response": []
+		},
+		{
+			"name": "get user list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "add header 'auth-token' from login to access data"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user with _id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "60a72ee63a55f500228fe496",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "// params: _id of user\n// check header auth-token\n// return object { id: '<deleltedId>' }"
+			},
+			"response": []
+		},
+		{
+			"name": "retreive a user with id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "60a73ff6f99f810022b52314",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "// params is user id\n// header auth-token\n// return user object in database"
+			},
+			"response": []
+		},
+		{
+			"name": "update user info ",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "60a73ff6f99f810022b52314",
+						"type": "text"
+					},
+					{
+						"key": "name",
+						"value": "nhat123456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Peter Parker\",\n    \"password\": \"1234567\",\n    \"phone\": \"0932497876\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "{\n    \"name\": \"Peter Parker\",\n    \"password\": \"1234567\",\n    \"phone\": \"0932497876\"\n}\n// return user in data\n// need user token\n\n// name: string, min 6, max 255\n// password: string, min 6, max 1024,\n// phone: string, min 9, max 11"
+			},
+			"response": []
+		},
+		{
+			"name": "get history list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/histories",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"histories"
+					]
+				},
+				"description": "// return list of history\n// require user token"
+			},
+			"response": []
+		},
+		{
+			"name": "get a history",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/histories/609f569a4bc54515d5f62a82",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"histories",
+						"609f569a4bc54515d5f62a82"
+					]
+				},
+				"description": "// params: id\n// require user token\n// return a history object"
+			},
+			"response": []
+		},
+		{
+			"name": "delete a history",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "id",
+						"value": "609f68490010301d8dbe2bda",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"temp\": 35,\n    \"humid\": 60,\n    \"speaker\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/histories",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"histories"
+					]
+				},
+				"description": "// params id\n// return object {id: \"<id>\"}\n// user token"
+			},
+			"response": []
+		},
+		{
+			"name": "add history ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"temp\": 35,\n    \"humid\": 60,\n    \"speaker\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/histories",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"histories"
+					]
+				},
+				"description": "{\n    \"temp\": 35,\n    \"humid\": 60,\n    \"speaker\": false\n}\n// temp: number, min 0, max 200\n// humid: number, min 0, max 100,\n// user token\n// return history object "
+			},
+			"response": []
+		},
+		{
+			"name": "get threshold",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/threshold",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"threshold"
+					]
+				},
+				"description": "// return object\n// user token"
+			},
+			"response": []
+		},
+		{
+			"name": "change threshold",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"temp\": \"25\",\n    \"humid\": \"75\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/threshold",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"threshold"
+					]
+				},
+				"description": "{\n    \"temp\": \"35\",\n    \"humid\": \"70\",\n    \"speakerFreq\": 1000\n}\n// temp: number, min-max: 0-200\n// humid: number, min-max: 0-100,\n// speakerFreq: number, min-max: 500-3000"
+			},
+			"response": []
+		},
+		{
+			"name": "update password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"curPassword\": \"qwerty123\",\n    \"newPassword\": \"qwerty1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/profile/password?id=60a73ff6f99f810022b52314",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"profile",
+						"password"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "60a73ff6f99f810022b52314"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user profile with id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/profile?id=60a73ff6f99f810022b52314",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"profile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "60a73ff6f99f810022b52314"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change user info with id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWY5ZjkzNDQ2NmEzMDAyMjg4YjQ0MyIsImlhdCI6MTYyMTA3NDYxOH0.jw18NE4_5DlxqGz6-Xz43nbONMa-GpbG44sImZVeN9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"pro1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dadn-project-123.herokuapp.com/api/profile/info?id=60a73ff6f99f810022b52314",
+					"protocol": "https",
+					"host": [
+						"dadn-project-123",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"profile",
+						"info"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "60a73ff6f99f810022b52314"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
